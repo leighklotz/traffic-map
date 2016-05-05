@@ -15,7 +15,6 @@ There are three major modes of grouping: ungrouped, grouped by archdomain, and g
 In practice, grouping by archdomain does not appear to be useful, but group by env is.
 There are three major data sets to visualize: instances, clusters (named by archdomain), and security-groups.  Ideally security-groups would mirror clusters.
 
-
 ## Caveats
 
 This software has never been configured or run outside of the initial AWS environment where it was developed.  It needs some work to be more generally useful.
