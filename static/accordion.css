@@ -1,0 +1,59 @@
+/* style (but not toggle mechanism) from 
+ *   https://odoepner.wordpress.com/2013/03/14/simple-accordion-using-css3-target-selector-no-javascript/ 
+ * The :target pseudo-class mechanism permits only one accordion to be open at a time, just use jquery toggleClass.
+ */
+
+.accordion {
+  font-family: sans-serif;
+}
+
+.accordion > fieldset {
+  margin: 0.5em;
+  border-radius: 5px;
+  border: 1px solid gray;
+  box-shadow: inset 0 0 5px gray;
+}
+
+.accordion > fieldset > legend {
+  background-color: #e7e7e7;
+  border: 1px solid gray;
+  border-radius: 3px;
+  font-size: 0.8em;
+  padding: 0.5em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+}
+
+.accordion > fieldset > legend a {
+  text-decoration: none;
+  color: gray;    
+}
+
+.accordion > fieldset:hover > legend a {
+  color: navy;
+}
+
+.accordion > fieldset.closed .section-content {
+  display: none;
+}
+
+.accordion > fieldset > legend a {
+  color: black;
+}
+
+.accordion > fieldset.closed > legend {
+  border: 1px solid darkgray;
+  color: darkgray;
+}
+
+.accordion > fieldset > legend a:before {
+  content:"\25BC\0000a0"
+  /* unicode triangle pointing down */
+}
+
+.accordion > fieldset.closed > legend a:before {
+  content:"\25BA\0000a0"
+  /* unicode triangle pointing right */
+}
+
+

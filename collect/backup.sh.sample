@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Traffic Map data only contains IP headers, not packet contents.
+
+DATA_DIR=/mnt/traffic/traffic-map
+BUCKET=s3://example/traffic/traffic-map/
+
+echo "$0: Backing up ${DATA_DIR} to $BUCKET"
+
+cd ${DATA_DIR}
+aws s3 sync . ${BUCKET}
+
+echo "$0: Backup done"

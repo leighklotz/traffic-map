@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Graph</title>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <link href="tips.css" rel="stylesheet" type="text/css" />
+    <link href="graph.css" rel="stylesheet" type="text/css" />
+    <link href="d3-tip/d3.tip.css" rel="stylesheet" type="text/css" />
+    <link href="accordion.css" rel="stylesheet" type="text/css" />
+
+    <!--link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" /-->
+
+    <script src="lodash/lodash.min.js"> </script>
+
+    <script src="initfields.js"></script>
+    <datalist id="filenames"></datalist>
+
+  </head>
+  <body onload="init_fields()">
+    <div class="instructions accordion" id="operation">
+
+      <fieldset>
+        <legend><a>Data File</a></legend>
+        <div class="section-content">
+          <label for="data_file_name">Data file: </label>
+          <input id="data_file_name" name="data_file_name" list="filenames" value="" size="32" />
+          <button id="clear_data_file_name" onclick="clear_data_file_name()">X</button>
+          <button id="go_button"><label>Go</label></button>
+          <button id="pause_resume_button" disabled="disabled"><label>Pause</label></button>
+          <button id="download_button" disabled="disabled"><label>Download</label></button>
+          <a href="" id="download_link" download="" style="display:none">Download</a>
+          <span style="float:right"><a target="_blank" href="https://github.com/leighklotz/traffic-map">Source Code</a></span>
+        </div>
+      </fieldset>
+
+      <fieldset class="closed">
+        <legend><a>Options</a></legend>
+        <div class="section-content">
+          <fieldset id="omit_traffic_archdomain_regexes">
+            <legend><a>Omit Traffic in Archdomains:</a></legend>
+            <div>
+              <label for="omit_proxy_traffic"> Proxy:</label>
+              <input  id="omit_proxy_traffic" name="omit_archdomain" type="checkbox" checked="checked" value="^offline\/ingestion\/proxy" />
+
+              <label for="omit_zookeeper_traffic"> Zookeeper:</label>
+              <input  id="omit_zookeeper_traffic" name="omit_archdomain" type="checkbox" checked="checked" value="^infrastructure\/core\/zookeeper" />
+
+              <label for="omit_kafka_traffic"> Kafka:</label>
+              <input  id="omit_kafka_traffic" name="omit_archdomain" type="checkbox" value="^infrastructure\/core\/kafka$" />
+
+              <label for="omit_monitoring_traffic"> Monitoring:</label>
+              <input  id="omit_monitoring_traffic" name="omit_archdomain" type="checkbox" checked="checked" value="^infrastructure\/monitoring" />
+
+              <label for="omit_deployment_traffic"> Deployment:</label>
+              <input  id="omit_deployment_traffic" name="omit_archdomain" type="checkbox" checked="checked" value="^infrastructure\/deployment" />
+
+              <label for="omit_external_traffic"> External:</label>
+              <input  id="omit_external_traffic" name="omit_archdomain" type="checkbox" checked="checked" value="^external$" />
+
+              <label for="omit_fastapi_traffic"> FastAPI:</label>
+              <input  id="omit_fastapi_traffic" name="omit_archdomain" type="checkbox" value="^online\/orchestration\/fastapi$" />
+
+              <label for="omit_elb_traffic"> ELB:</label>
+              <input  id="omit_elb_traffic" name="omit_archdomain" type="checkbox" value="^aws\/elb$" />
+
+              <label for="omit_jenkins_traffic"> Jenkins:</label>
+              <input id="omit_jenkins_traffic" name="omit_archdomain" type="checkbox" value="^infrastructure\/deployment\/jenkins" />
+
+              <label for="omit_emr_traffic"> EMR:</label>
+              <input id="omit_emr_traffic" name="omit_archdomain" type="checkbox" value="^aws\/emr" />
+
+              <label for="omit_emr_traffic"> corp:</label>
+              <input id="omit_corp_traffic" name="omit_archdomain" type="checkbox" value="^corp/" />
+
+              <label for="omit_unknown_traffic"> unknown:</label>
+              <input id="omit_unknown_traffic" name="omit_archdomain" type="checkbox" value="^unknown" />
+            </div>
+          </fieldset>
+
+          <fieldset id="omit_traffic_env_regexes">
+            <legend><a>Omit Traffic in Envs: </a></legend>
+            <div>
+              <label for="omit_usw1-prod_traffic">usw1-prod:</label>
+              <input  id="omit_usw1-prod_traffic" name="omit_env" type="checkbox" value="^usw1-prod$" />
+
+              <label for="omit_prod_traffic">prod:</label>
+              <input  id="omit_prod_traffic" name="omit_env" type="checkbox" value="^prod$" />
+
+              <label for="omit_stage_traffic">stage:</label>
+              <input  id="omit_stage_traffic" name="omit_env" type="checkbox" value="^stage$" />
+
+              <label for="omit_canary_traffic">canary:</label>
+              <input  id="omit_canary_traffic" name="omit_env" type="checkbox" value="^canary$" />
+
+              <label for="omit_dev_traffic">dev:</label>
+              <input  id="omit_dev_traffic" name="omit_env" type="checkbox" value="^dev$" />
+
+              <label for="omit_dev_traffic">phnx:</label>
+              <input  id="omit_dev_traffic" name="omit_env" type="checkbox" value="^phnx$" />
+
+              <label for="omit_aws_external_traffic">aws-external:</label>
+              <input  id="omit_dev_traffic" name="omit_env" type="checkbox" value="^aws-external$" />
+
+              <label for="omit_external_traffic">external:</label>
+              <input  id="omit_dev_traffic" name="omit_env" type="checkbox" value="^external$" />
+
+              <label for="omit_unknown_traffic">unknown env:</label>
+              <input  id="omit_unknown_traffic" name="omit_env" type="checkbox" value="^unknown$" />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><a>Filtering</a></legend>
+            <div>
+              <label for="omit_filtered_nodes">Hide Nodes too, not just traffic:</label>
+              <input id="hide_filtered_nodes" name="hide_filtered_nodes" type="checkbox" value="true" />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><a>Grouping</a></legend>
+            <div>
+              <label for="group_strongly_by">Group strongly by: </label>
+              <select id="group_strongly_by" name="group_strongly_by">
+                <option value="traffic">Traffic</option>
+                <option value="archdomain">Archdomain</option>
+                <option value="env" selected="selected">Env</option>
+              </select>
+              <label for="group_weakly_by">Group Weakly by: </label>
+              <select id="group_weakly_by" name="group_weakly_by">
+                <option value="none">None</option>
+                <option value="archdomain" disabled='disabled'>Archdomain</option>
+                <option value="env" disabled='disabled'>Env</option>
+                <option value="traffic" selected="selected">Traffic</option>
+              </select>
+              <label for="group_weakly_by">Cluster strength: </label>
+              <select id="cluster_strength" name="cluster_strength">
+                <option value="weak">Weak</option>
+                <option value="strong" selected="selected">Strong</option>
+              </select>
+            </div>
+          </fieldset>
+        </div>
+      </fieldset>
+    </div>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="colorbrewer/colorbrewer.min.js"></script>
+    <script src="d3-tip/index.js"></script>
+
+    <script src="tags.js"></script>
+    <script src="graph.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script-->
+    
+    <script>
+      $(document).ready(function() {
+        $('.accordion>fieldset>legend>a' ).click(function() { $(this).parent().parent().toggleClass('closed'); return false; });
+      });
+    </script>
+
+  </body>
+</html>

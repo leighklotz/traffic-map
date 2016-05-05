@@ -1,0 +1,7 @@
+requests[security]
+netifaces
+fabric
+boto
+boto3
+dateutil
+

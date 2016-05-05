@@ -1,0 +1,4 @@
+# use http://www.tcpiputils.com/browse/ip-address/ to figure these out
+QUIXEYPLEX	12.163.79.3	107.1.171.99	107.1.171.101
+AWS-DNS-SERVER	172.16.0.23
+AWS-EC2-SERVICES	204.246.163.231

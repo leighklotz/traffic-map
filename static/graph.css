@@ -1,0 +1,27 @@
+circle.node {
+    stroke: #fff;
+    stroke-width: 3px;
+}
+
+line.link:hover {
+    stroke: #00f !important;
+}
+
+line.link {
+    stroke-width: 2px;
+    stroke: #999;
+    stroke-opacity: 0.6;
+}
+
+line.link.p80 {
+    stroke: #0f0;
+}
+
+line.link.p3306 {
+    stroke: #f00;
+}
+
+marker#arrow {
+    stroke: #999;
+    fill: #999;
+}
