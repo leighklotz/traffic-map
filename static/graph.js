@@ -80,10 +80,10 @@ d3.select("#go_button").on("click", function() {
     var stroke_by = calculate_stroke_color(group_strongly_by, group_weakly_by);
 
     var omit_archdomains = document.querySelectorAll("input[type=checkbox][name=omit_archdomain]:checked");
-    var omit_archdomains_regex = _.pluck(omit_archdomains, 'value').join("|");
+    var omit_archdomains_regex = _.map(omit_archdomains, 'value').join("|");
 
     var omit_envs = document.querySelectorAll("input[type=checkbox][name=omit_env]:checked");
-    var omit_envs_regex = _.pluck(omit_envs, 'value').join("|");
+    var omit_envs_regex = _.map(omit_envs, 'value').join("|");
 
     var hide_filtered_nodes = (! _.isEmpty(document.querySelectorAll("input[type=checkbox][name=hide_filtered_nodes]:checked")));
 
@@ -304,7 +304,15 @@ function get_focus_node(group_strongly_by, group_weakly_by, node) {
     if (g == 'env') {
         return params.ENV_FOCI_NODES[node['env']];
     } else if (g == 'archdomain') {
-        return params.TAG_FOCI_NODES[sanitize_archdomain(node)];
+	function matcher (archdomain) { return function (x) { return (archdomain.indexOf(x) == 0) ? x.length : -1; } };
+
+	var sanitized_archdomain = sanitize_archdomain(node);
+	var best_matching_archdomain = _.orderBy(_.keys(params.TAG_FOCI_NODES), matcher(sanitized_archdomain), ['desc'])[0];
+	if (_.isUndefined(best_matching_archdomain)) {
+	    return undefined;
+	} else {
+            return params.TAG_FOCI_NODES[best_matching_archdomain];
+	}
     }
 
     return null;
