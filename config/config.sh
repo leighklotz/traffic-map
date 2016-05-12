@@ -9,19 +9,19 @@ TOP=`dirname ${BASH_SOURCE}`/..
 REGION=us-west-1
 
 # DATDIR is where the scp jobs copy tcpdump output to from the remote systems
-DATDIR="/mnt/klotz/traffic-map/data/netgraph-dat-${DATE}"
+DATDIR="/mnt/traffic/traffic-map/data/netgraph-dat-${DATE}"
 
 # OUTPUT is where the instances and clusters JSON files go for serving; serve/node.sh symlinks this to $STATIC/data so node will serve it.
-OUTPUT="/mnt/klotz/traffic-map/visualization"
+OUTPUT="/mnt/traffic/traffic-map/visualization"
 
 # SCRIPTDIR is where this code runs.
-SCRIPTDIR="/home/klotz/src/traffic-map"
+SCRIPTDIR="/home/traffic/src/traffic-map"
 
 # STATIC is where the static HTML files are
-STATIC="/home/klotz/src/traffic-map/static"
+STATIC="/home/traffic/src/traffic-map/static"
 
 # Foreign-IPs is well-known IP addresses that are not resolved
-FOREIGN_IPS="/home/klotz/src/traffic-map/config/foreign-ips.txt"
+FOREIGN_IPS="/home/traffic/src/traffic-map/config/foreign-ips.txt"
 
 HOSTS_TXT="${DATDIR}/hosts.txt"
 
@@ -35,10 +35,10 @@ COMPRESSED_SECURITY_GROUPS="${DATDIR}/security-groups.json.gz"
 SSHOPTS="-i /home/traffic/.ssh/id_rsa_unlocked -q -n -o ConnectTimeout=1 -o ConnectionAttempts=2 -o StrictHostKeyChecking=no -o BatchMode=yes -o PreferredAuthentications=publickey"
 
 # CSV of Archdomain Tag, Component Owner, and Component UID
-MASTER_ARCHDOMAIN_TAGS="/home/klotz/archdomain.csv"
+MASTER_ARCHDOMAIN_TAGS="/home/traffic/archdomain.csv"
 
 # Admin Email
-ADMIN_EMAIL=klotz@graflex.org
+ADMIN_EMAIL=traffic@example.com
 
 # Reports go here
-REPORT_EMAIL=klotz@graflex.org
+REPORT_EMAIL=traffic@example.com
