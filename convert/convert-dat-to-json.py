@@ -183,10 +183,7 @@ class Status(object):
 
   def build_nodes(self):
     info("Building nodes")
-    def build_node(ip):
-      return self.build_node(ip)
-
-    return [build_node(ip) for ip in self.node_counts.keys()]
+    return [self.build_node(ip) for ip in self.node_counts.keys()]
 
   def build_node(self, ip):
     hostified_name = self.hostify(ip)
