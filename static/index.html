@@ -14,7 +14,8 @@
 
     <!--link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" /-->
 
-    <script src="lodash/lodash.min.js"> </script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.12.0/lodash.min.js"> </script>
+    <!--<script src="lodash/lodash.min.js"> </script>-->
 
     <script src="initfields.js"></script>
     <datalist id="filenames"></datalist>
@@ -57,6 +58,12 @@
 
               <label for="omit_deployment_traffic"> Deployment:</label>
               <input  id="omit_deployment_traffic" name="omit_archdomain" type="checkbox" checked="checked" value="^infrastructure\/deployment" />
+
+              <label for="omit_online_traffic"> Online:</label>
+              <input  id="omit_online_traffic" name="omit_archdomain" type="checkbox" value="^online\/" />
+
+              <label for="omit_offline_traffic"> Online:</label>
+              <input  id="omit_offline_traffic" name="omit_archdomain" type="checkbox" value="^offline\/" />
 
               <label for="omit_external_traffic"> External:</label>
               <input  id="omit_external_traffic" name="omit_archdomain" type="checkbox" checked="checked" value="^external$" />
