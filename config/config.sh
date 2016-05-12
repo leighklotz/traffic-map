@@ -2,6 +2,9 @@
 DATE=`date +%Y-%m-%d`
 YMD=$DATE
 
+# When this config.is is sourced, find the root directory.
+TOP=`dirname ${BASH_SOURCE}`/..
+
 # Collect traffic from hosts in this region but collect names of hosts in all regions
 REGION=us-west-1
 

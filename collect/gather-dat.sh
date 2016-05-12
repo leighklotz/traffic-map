@@ -3,6 +3,7 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd ${DIR}
 . ../config/config.sh
+. ${TOP}/venv/bin/activate
 
 # Gather traffic data from hosts, unless we already have it for the day.
 

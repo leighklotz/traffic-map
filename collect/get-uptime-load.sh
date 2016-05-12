@@ -3,6 +3,7 @@
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 cd ${DIR}
 . ../config/config.sh
+. ${TOP}/venv/bin/activate
 
 # Gather loadavg, uptime, and free
 

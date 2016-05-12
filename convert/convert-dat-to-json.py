@@ -304,7 +304,8 @@ class Status(object):
         return node
     return None
 
-  def main(self, ips_txt, foreign_ips_txt, datfile):
+  def main(self, ips_txt, foreign_ips_txt, datfile, outjson):
+    self.outjson = outjson
     self.read_ips(ips_txt)
     self.read_foreign_ips(foreign_ips_txt)
     self.process(datfile)
@@ -342,18 +343,20 @@ class Status(object):
 
     info("Writing Graph")
     graph = {"nodes": nodes, "links": links, "about": about}
-    print (json.dumps(graph, indent=2))
+    with open(self.outjson, 'w') as f:
+      json.dump(graph, f, indent=2)
 
     if (self.DEBUG or self.VERBOSE):
       info("Report: {}", report)
 
 if __name__ == "__main__":
-  if len(sys.argv) < 3:
-    warn("usage: {} ips.txt config/foreign_ips.txt DATFILE", sys.argv[0])
+  if len(sys.argv) < 4:
+    warn("usage: {} ips.txt config/foreign_ips.txt DATFILE OUTJSON", sys.argv[0])
     exit(-1)
   else:
     ips_txt = sys.argv[1]
     foreign_ips_txt = sys.argv[2]
     datfile = sys.argv[3]
+    outjson = sys.argv[4]
     status = Status()
-    status.main(ips_txt, foreign_ips_txt, datfile)
+    status.main(ips_txt, foreign_ips_txt, datfile, outjson)

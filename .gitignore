@@ -1,3 +1,4 @@
 *~
 *.pyc
 static/data
+venv
