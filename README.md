@@ -125,6 +125,21 @@ a re-write from scratch.  Traffic Map outputs D3 Gravity files instead
 of Graphviz; written in Python instead of Perl.  See 
 https://web.archive.org/web/20071104191340/http://www.grotto-group.com/~gulfie/projects/analysis/tcpdump2dot.subpage.html
 
+# Install
+
+````
+sudo apt-get install python-dateutil python-virtualenv libffi6 openssl
+virtualenv venv
+. venv/bin/activate
+pip install -r requirements.txt
+````
+
+- Edit config/config.sh
+- Edit collect/fabconfig.ini
+- Create user specified in config/config.sh on all remote hosts and add to sudoers.
+- TODO: if user can sudo without password, eliminate password code
+- TODO: if user has pcap privileges, eliminate sudo code
+
 # Resources used
 - [d3.js](http://d3js.org/) (BSD License)
 - [colorbrewer](http://colorbrewer.org/) (Apache License)
